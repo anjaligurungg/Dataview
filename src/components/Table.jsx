@@ -1,6 +1,6 @@
 import React, { memo, useEffect, useMemo, useState } from "react";
-
 import config from "../config/config";
+
 const Table = () => {
   const [data, setData] = useState([]);
   const [order, setOrder] = useState("asc");
@@ -44,20 +44,19 @@ const Table = () => {
       return 0;
     });
   };
+
   const filteeData = () => {
     const filteredData = data.filter((data) => data.symbol.includes(search));
     return sortData(filteredData);
   };
+
   useEffect(() => {
     fetchData();
   }, []);
 
-  const memoData = useMemo(filteeData, sortData[(data, search)], [
-    data,
-    order,
-    orderBy,
-    search,
-  ]);
+  // Make sure to add the correct dependencies to useMemo
+  const memoData = useMemo(filteeData, [data, order, orderBy, search]);
+
   return (
     <>
       <h1>Data</h1>
